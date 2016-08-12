@@ -37,15 +37,19 @@ defmodule Credo.Sources do
     |> Path.wildcard
   end
   def find(module) when is_atom(module) do
-    IO.inspect module.module_info
+    IO.inspect module.module_info[:compile]
 
     path =
     module.module_info[:compile][:source]
     |> to_string
 
-    %Credo.Config{files: %{excluded: [], included: [path]}}
+    IO.inspect path
+
+    file = %Credo.Config{files: %{excluded: [], included: [path]}}
     |> find
     |> List.first
+
+    IO.inspect file
   end
 
   def exclude(files, patterns \\ []) do
