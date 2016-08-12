@@ -37,6 +37,8 @@ defmodule Credo.Sources do
     |> Path.wildcard
   end
   def find(module) when is_atom(module) do
+    IO.inspect module.module_info
+
     path =
     module.module_info[:compile][:source]
     |> to_string
